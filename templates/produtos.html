@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Produtos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            text-align: center;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+        form {
+            margin: 20px auto;
+            width: 90%;
+            max-width: 800px;
+            text-align: left;
+        }
+        input, button {
+            margin-top: 5px;
+            margin-bottom: 10px;
+            padding: 6px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .form-inline input {
+            width: auto;
+            margin-right: 10px;
+        }
+        a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista de Produtos</h1>
+
+    <form class="form-inline" method="GET" action="{{ url_for('listar_produtos') }}" style="text-align: center;">
+        <input type="text" name="filtro_nome" placeholder="Filtrar por nome do produto">
+        <button type="submit">Buscar</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Preço</th>
+                <th>Estoque</th>
+                <th>Edição</th>
+                <th>Exclusão</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for produto in produtos %}
+                <tr>
+                    <td>{{ produto.id }}</td>
+                    <td>{{ produto.nome }}</td>
+                    <td>R$ {{ "%.2f"|format(produto.preco) }}</td>
+                    <td>{{ produto.estoque }}</td>
+                    <td><a href="{{ url_for('editar_produto', id=produto.id) }}">Editar</a></td>
+                    <td><a href="/produtos/excluir/{{ produto.id }}">[Excluir]</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Adicionar Produto</h2>
+    <form action="/produtos/adicionar" method="post">
+        Nome: <input type="text" name="nome" required><br>
+        Preço: <input type="number" name="preco" step="0.01" required><br>
+        Estoque: <input type="number" name="estoque" required><br>
+        <button type="submit">Adicionar</button>
+    </form>
+
+    <a href="/">Voltar</a>
+</body>
+</html>
