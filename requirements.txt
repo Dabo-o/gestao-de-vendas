@@ -1,2 +1,4 @@
+# BIBLIOTECAS UTILIZADAS
+
 flask
 sqlalchemy

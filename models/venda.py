@@ -1,5 +1,8 @@
+# Importa as classes para definir colunas e tipos de dados
 from sqlalchemy import Column, Integer, ForeignKey, Date
+# Importa o banco de dados
 from database import Base
+# Importa biblioteca para conseguir a data de hoje
 from datetime import date
 
 class Venda(Base):
