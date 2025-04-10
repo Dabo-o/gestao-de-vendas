@@ -2,6 +2,7 @@
 
  Este projeto tem como objetivo desenvolver um sistema simples de gestão de vendas com interface web. A proposta é criar uma aplicação acessível, mesmo para pessoas com pouca familiaridade com computadores, sendo ideal para pequenos comércios como mercadinhos e lojas locais.
  A aplicação foi desenvolvida utilizando Python, com as bibliotecas Flask (para a criação da interface web) e SQLAlchemy (para a manipulação do banco de dados relacional).
+ (Feito com propósitos acadêmicos!)
 
  ## 🗃️ Estrutura das Tabelas
  
