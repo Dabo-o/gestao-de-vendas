@@ -36,9 +36,9 @@ def listar_clientes(): # Função responsável por retornar a lista de clientes,
     filtro_email = request.args.get("filtro_email", "") # Variável utilizada para busca filtrada, que recebe o valor do filtro email
 
     if filtro_nome: # Aplica filtro por nome, Se existir
-        clientes = session.query(Cliente).filter(Cliente.nome.contains(filtro_nome)).all() # Lista os clientes com o filtro_nome
+        clientes = session.query(Cliente).filter(Cliente.nome.ilike(f"%{filtro_nome}%")).all() # Lista os clientes com o filtro_nome
     elif filtro_email: # Aplica filtro por email, Se existir
-        clientes = session.query(Cliente).filter(Cliente.email.contains(filtro_email)).all() # Lista os clientes com o filtro_email
+        clientes = session.query(Cliente).filter(Cliente.email.ilike(f"%{filtro_email}%")).all() # Lista os clientes com o filtro_email
     else: # Se não tiver filtros ele cai aqui
         clientes = session.query(Cliente).all() # Lista todos os clientes (sem filtro)
 
@@ -137,13 +137,11 @@ def listar_vendas():
     quantidade = request.args.get("quantidade", "").strip()
     data_venda = request.args.get("data_venda", "").strip()
 
-    vendas_query = session.query(Venda)   
-# Filtra por data
     if data_venda:
-        vendas_query = vendas_query.filter(Venda.data_venda == data_venda)
+        vendas = session.query(Venda).filter(Venda.data_venda == data_venda).all()
+    else:
+        vendas = session.query(Venda).all()
 
-    vendas = vendas_query.all()
-    
     resultado = []
 
 # Percorre todas as vendas
